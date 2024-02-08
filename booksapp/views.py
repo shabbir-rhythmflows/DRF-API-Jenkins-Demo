@@ -3,32 +3,32 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from .models import Post
 from .serializers import PostSerializer
-from drf_api_logger import API_LOGGER_SIGNAL
-from elasticsearch import Elasticsearch
+# from drf_api_logger import API_LOGGER_SIGNAL
+# from elasticsearch import Elasticsearch
 from .serializers import APILogsModelSerializer
 import json
 
-esclient = Elasticsearch("http://localhost:9200")
+# esclient = Elasticsearch("http://localhost:9200")
 
-def listener_one(**kwargs):
-    print(kwargs)
-    kwargs['headers'] = json.dumps(kwargs['headers'])
-    kwargs['body'] = json.dumps(kwargs['body'])
-    kwargs['response'] = json.dumps(kwargs['response'])
-    kwargs['execution_time'] = '{:.15f}'.format(float(kwargs['execution_time']))
-    doc_serializer = APILogsModelSerializer(data=kwargs)
+# def listener_one(**kwargs):
+#     print(kwargs)
+#     kwargs['headers'] = json.dumps(kwargs['headers'])
+#     kwargs['body'] = json.dumps(kwargs['body'])
+#     kwargs['response'] = json.dumps(kwargs['response'])
+#     kwargs['execution_time'] = '{:.15f}'.format(float(kwargs['execution_time']))
+#     doc_serializer = APILogsModelSerializer(data=kwargs)
 
-    if doc_serializer.is_valid():
-        serialized_data = doc_serializer.validated_data
+#     if doc_serializer.is_valid():
+#         serialized_data = doc_serializer.validated_data
         
-        res = esclient.index(index="shabbirapi3", document=serialized_data)
-        print(f"Successfully saved APILogsModel instance with id: {res['_id']}")
-    # print("haha")
-    else:
-    # print("haha2")
-        print(f"Error in serializer data: {doc_serializer.errors}")
+#         res = esclient.index(index="shabbirapi3", document=serialized_data)
+#         print(f"Successfully saved APILogsModel instance with id: {res['_id']}")
+#     # print("haha")
+#     else:
+#     # print("haha2")
+#         print(f"Error in serializer data: {doc_serializer.errors}")
 
-API_LOGGER_SIGNAL.listen += listener_one
+# API_LOGGER_SIGNAL.listen += listener_one
 
 # /api/index
 @api_view(['GET'])

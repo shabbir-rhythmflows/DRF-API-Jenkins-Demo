@@ -1,0 +1,27 @@
+# Exclude version control files
+.git
+.gitignore
+
+# Exclude any compiled Python files
+*.pyc
+__pycache__
+
+# Exclude Django generated files
+*.sqlite3
+*.pyc
+*.pyo
+
+# Exclude any development-related files
+*.env
+.envrc
+*.log
+*.swp
+
+# Exclude Docker-related files
+Dockerfile
+docker-compose.yml
+
+# Exclude any other unnecessary files or directories
+node_modules
+*.lock
+*.csv

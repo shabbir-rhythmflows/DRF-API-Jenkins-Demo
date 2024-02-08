@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-3s*@q(_tlz5-rdvod)c$hv!w!=o58)vy7v0k5f+q8u1h5(ko@c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -39,16 +39,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     "booksapp",
-    'corsheaders',
-    'drf_api_logger',
-    'django_elasticsearch_dsl',
+    # 'corsheaders',
+    # 'drf_api_logger',
+    # 'django_elasticsearch_dsl',
 ]
 
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'http://localhost:9200',  # Use http instead of https for non-SSL connection
-    },
-}
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': 'http://localhost:9200',  # Use http instead of https for non-SSL connection
+#     },
+# }
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -58,8 +58,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
+    # "corsheaders.middleware.CorsMiddleware",
+    # 'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = "booksblog.urls"
@@ -139,5 +139,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173"
 ]
 
-DRF_API_LOGGER_SIGNAL = True
-DRF_API_LOGGER_DATABASE = False
+# DRF_API_LOGGER_SIGNAL = True
+# DRF_API_LOGGER_DATABASE = False
