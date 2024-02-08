@@ -15,16 +15,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project
 COPY . /app/
 
+# Run migrations
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+
 # Set the environment variable for the superuser username
 ENV DJANGO_SUPERUSER_USERNAME admin
 # Set the environment variable for the superuser password
 ENV DJANGO_SUPERUSER_PASSWORD admin
 # Create the superuser
 RUN python manage.py createsuperuser --noinput
-
-# Run migrations
-RUN python manage.py makemigrations
-RUN python manage.py migrate
 
 # Expose port
 EXPOSE 8000
