@@ -1,14 +1,26 @@
 pipeline {
     agent any
+    environment {
+        dockerHome = tool 'rhythmDocker'
+        PATH = "$dockerHome/bin::$PATH"
+        scannerHome = tool 'sonarqubescanner'
+        sonarserver = 'sonarserver'
+    }
     stages {
-        stage('Install') {
-            steps {
-                echo "I INSTALL"
-            }
-        }
+        // stage('Install') {
+        //     steps {
+        //         echo "I INSTALL"
+        //     }
+        // }
         stage('SonarQube Analysis') {
             steps {
-            echo "ANALYSIS!"
+                withSonarQubeEnv(sonarserver) {
+                    script {
+                        withSonarQubeEnv(credentialsId: 'demodjangoshabbirtoken') {
+                            sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                    }
+                }
             }
         }
 
