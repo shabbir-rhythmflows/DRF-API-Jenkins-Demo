@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Deploy With SSH') {
             steps {
-                echo "PUSHED DOCKER IMAGE"
+                echo "PUSHED DOCKER IMAGE "
             }
         }
 
