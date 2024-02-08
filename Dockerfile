@@ -23,6 +23,7 @@ RUN python manage.py migrate
 ENV DJANGO_SUPERUSER_USERNAME admin
 # Set the environment variable for the superuser password
 ENV DJANGO_SUPERUSER_PASSWORD admin
+ENV DJANGO_SUPERUSER_EMAIL admin@admin.com
 # Create the superuser
 RUN python manage.py createsuperuser --noinput
 
