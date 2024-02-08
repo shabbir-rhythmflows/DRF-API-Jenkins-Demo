@@ -12,17 +12,17 @@ pipeline {
         //         echo "I INSTALL"
         //     }
         // }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv(sonarserver) {
-                    script {
-                        withSonarQubeEnv(credentialsId: 'demodjangoshabbirtoken') {
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                    }
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv(sonarserver) {
+        //             script {
+        //                 withSonarQubeEnv(credentialsId: 'demodjangoshabbirtoken') {
+        //                     sh "${scannerHome}/bin/sonar-scanner"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
 
         stage('Build Docker Image') {
