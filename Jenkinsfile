@@ -47,7 +47,30 @@ pipeline {
         }
         stage('Deploy With SSH') {
             steps {
-                echo "PUSHED DOCKER IMAGE "
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'ubuntuServer', passwordVariable: 'REMOTE_PASSWORD', usernameVariable: 'REMOTE_USER')]) {
+                        remote = [:]
+                        remote.name = 'ubuntu test server'
+                        remote.host = env.REMOTE_USER
+                        remote.user = 'root'
+                        remote.password = env.REMOTE_PASSWORD
+                        remote.allowAnyHosts = true
+
+                        stopExitStatus = sh(script: 'docker stop django-demo', returnStatus: true)
+
+                        if (stopExitStatus == 0) {
+                            sshCommand remote: remote, command: 'echo "CONTAINER Exists! Deleting it!"'
+                            // Container exists, stop and remove it
+                            // sshCommand remote: remote, command: 'docker stop reconciliation-demo'
+                            sshCommand remote: remote, command: 'docker rm django-demo'
+                        }
+                        if (stopExitStatus == 1) {
+                            sh 'echo "Did not delete container as it did not exist"'
+                        }
+
+                        sshCommand remote: remote, command: "docker run -d --name django-demo -p 8084:8000 shabbirhythm/demo-django-books:\\$env.BUILD_ID"
+                    }
+                }
             }
         }
 
