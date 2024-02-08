@@ -35,7 +35,7 @@ import json
 def index(request):
     if request.method == 'GET':
         print("GET lol")
-        return Response("GET LOL")
+        return Response("I AM THE RESPONSE to your GET request !")
     return Response("Not GET")
 
 class PostAPI(APIView):
