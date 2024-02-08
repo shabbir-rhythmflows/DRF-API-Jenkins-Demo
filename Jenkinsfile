@@ -27,13 +27,22 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
+                script {
+                    imageName = "shabbirhythm/demo-django-books:${env.BUILD_ID}"
+                    docker.build(imageName)
+                }
                 echo 'BUILT SUCCESSFULLY'
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                echo "BUILD DOCKER IMAGE"
+                script {
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        docker.image("shabbirhythm/demo-django-books:${env.BUILD_ID}").push()
+                    }
+                }
+                echo "PUSHED SUCCESSFULLY"
             }
         }
         stage('Deploy With SSH') {
